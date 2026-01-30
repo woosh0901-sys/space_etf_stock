@@ -39,11 +39,12 @@ export function middleware(request: NextRequest) {
         'Content-Security-Policy',
         [
             "default-src 'self'",
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com",
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://s3.tradingview.com https://www.tradingview.com",
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
             "font-src 'self' https://fonts.gstatic.com",
             "img-src 'self' data: https:",
-            "connect-src 'self' https://*.firebase.com https://*.firebaseio.com https://www.google-analytics.com",
+            "connect-src 'self' https://*.firebase.com https://*.firebaseio.com https://www.google-analytics.com https://*.tradingview.com",
+            "frame-src 'self' https://www.tradingview.com https://s.tradingview.com",
             "frame-ancestors 'none'",
         ].join('; ')
     );

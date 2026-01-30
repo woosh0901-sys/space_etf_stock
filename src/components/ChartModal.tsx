@@ -16,6 +16,24 @@ export default function ChartModal({ ticker, name, nameKr, isOpen, onClose }: Ch
     useEffect(() => {
         if (!isOpen || !containerRef.current) return;
 
+        // 컨테이너 초기화
+        const container = containerRef.current;
+        container.innerHTML = '';
+
+        // TradingView 위젯 컨테이너 생성
+        const widgetContainer = document.createElement('div');
+        widgetContainer.className = 'tradingview-widget-container';
+        widgetContainer.style.height = '100%';
+        widgetContainer.style.width = '100%';
+
+        const widgetDiv = document.createElement('div');
+        widgetDiv.className = 'tradingview-widget-container__widget';
+        widgetDiv.style.height = 'calc(100% - 32px)';
+        widgetDiv.style.width = '100%';
+
+        widgetContainer.appendChild(widgetDiv);
+        container.appendChild(widgetContainer);
+
         // TradingView 위젯 스크립트 로드
         const script = document.createElement('script');
         script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
@@ -29,7 +47,10 @@ export default function ChartModal({ ticker, name, nameKr, isOpen, onClose }: Ch
             theme: 'dark',
             style: '1',
             locale: 'kr',
+            backgroundColor: 'rgba(18, 18, 42, 1)',
+            gridColor: 'rgba(100, 100, 150, 0.1)',
             enable_publishing: false,
+            allow_symbol_change: true,
             hide_top_toolbar: false,
             hide_legend: false,
             save_image: false,
@@ -38,15 +59,18 @@ export default function ChartModal({ ticker, name, nameKr, isOpen, onClose }: Ch
             support_host: 'https://www.tradingview.com'
         });
 
-        containerRef.current.innerHTML = '';
-        containerRef.current.appendChild(script);
+        widgetContainer.appendChild(script);
+
+        // ESC 키로 닫기
+        const handleEsc = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') onClose();
+        };
+        document.addEventListener('keydown', handleEsc);
 
         return () => {
-            if (containerRef.current) {
-                containerRef.current.innerHTML = '';
-            }
+            document.removeEventListener('keydown', handleEsc);
         };
-    }, [isOpen, ticker]);
+    }, [isOpen, ticker, onClose]);
 
     if (!isOpen) return null;
 
