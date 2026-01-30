@@ -9,9 +9,10 @@ interface HoldingsTableProps {
     searchTerm: string;
     quotes: StockQuoteMap;
     isLoading: boolean;
+    onStockClick: (holding: CombinedHolding) => void;
 }
 
-export default function HoldingsTable({ holdings, filter, searchTerm, quotes, isLoading }: HoldingsTableProps) {
+export default function HoldingsTable({ holdings, filter, searchTerm, quotes, isLoading, onStockClick }: HoldingsTableProps) {
     const filtered = holdings.filter(h => {
         // 검색 필터
         const matchesSearch = searchTerm === '' ||
@@ -65,7 +66,11 @@ export default function HoldingsTable({ holdings, filter, searchTerm, quotes, is
                     {filtered.map(h => {
                         const quote = quotes[h.ticker];
                         return (
-                            <tr key={h.ticker} className={h.isOverlap ? 'overlap-row' : ''}>
+                            <tr
+                                key={h.ticker}
+                                className={`${h.isOverlap ? 'overlap-row' : ''} stock-row`}
+                                onClick={() => onStockClick(h)}
+                            >
                                 <td className="ticker-cell">
                                     <span className="ticker">{h.ticker}</span>
                                 </td>

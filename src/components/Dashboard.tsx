@@ -1,12 +1,19 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getUFOData, getARKXData, getCombinedHoldings, getOverlapCount, getAllTickers } from '@/lib/etf-data';
+import { getUFOData, getARKXData, getCombinedHoldings, getOverlapCount, getAllTickers, CombinedHolding } from '@/lib/etf-data';
 import { fetchStockQuotes, StockQuoteMap } from '@/lib/stock-api';
 import { initAnalytics } from '@/lib/firebase';
 import ETFCard from '@/components/ETFCard';
 import SearchFilter from '@/components/SearchFilter';
 import HoldingsTable from '@/components/HoldingsTable';
+import ChartModal from '@/components/ChartModal';
+
+interface ChartData {
+    ticker: string;
+    name: string;
+    nameKr: string;
+}
 
 export default function Dashboard() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -14,6 +21,7 @@ export default function Dashboard() {
     const [quotes, setQuotes] = useState<StockQuoteMap>({});
     const [isLoading, setIsLoading] = useState(true);
     const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+    const [chartData, setChartData] = useState<ChartData | null>(null);
 
     const ufoData = getUFOData();
     const arkxData = getARKXData();
@@ -33,7 +41,8 @@ export default function Dashboard() {
     const loadQuotes = async () => {
         setIsLoading(true);
         try {
-            const tickers = getAllTickers();
+            // ETF 티커도 포함
+            const tickers = [...getAllTickers(), 'UFO', 'ARKX'];
             const fetchedQuotes = await fetchStockQuotes(tickers);
             setQuotes(fetchedQuotes);
             setLastUpdated(new Date());
@@ -42,6 +51,23 @@ export default function Dashboard() {
         } finally {
             setIsLoading(false);
         }
+    };
+
+    const handleStockClick = (holding: CombinedHolding) => {
+        setChartData({
+            ticker: holding.ticker,
+            name: holding.name,
+            nameKr: holding.nameKr
+        });
+    };
+
+    const handleETFClick = (ticker: 'UFO' | 'ARKX') => {
+        const etf = ticker === 'UFO' ? ufoData : arkxData;
+        setChartData({
+            ticker,
+            name: etf.etf.name,
+            nameKr: ticker === 'UFO' ? 'UFO 우주 ETF' : 'ARKX 우주 ETF'
+        });
     };
 
     return (
@@ -72,11 +98,15 @@ export default function Dashboard() {
                     etf={ufoData}
                     overlapCount={overlapCount}
                     color="blue"
+                    quote={quotes['UFO']}
+                    onClick={() => handleETFClick('UFO')}
                 />
                 <ETFCard
                     etf={arkxData}
                     overlapCount={overlapCount}
                     color="purple"
+                    quote={quotes['ARKX']}
+                    onClick={() => handleETFClick('ARKX')}
                 />
             </section>
 
@@ -122,12 +152,24 @@ export default function Dashboard() {
                     searchTerm={searchTerm}
                     quotes={quotes}
                     isLoading={isLoading}
+                    onStockClick={handleStockClick}
                 />
             </section>
 
+            {/* Chart Modal */}
+            {chartData && (
+                <ChartModal
+                    ticker={chartData.ticker}
+                    name={chartData.name}
+                    nameKr={chartData.nameKr}
+                    isOpen={true}
+                    onClose={() => setChartData(null)}
+                />
+            )}
+
             {/* Footer */}
             <footer className="dashboard-footer">
-                <p>데이터 출처: Procure ETFs, ARK Invest, Yahoo Finance</p>
+                <p>데이터 출처: Procure ETFs, ARK Invest, Yahoo Finance, TradingView</p>
                 <p className="disclaimer">
                     ⚠️ 투자 조언이 아닙니다. 투자 결정 전 전문가와 상담하세요.
                 </p>

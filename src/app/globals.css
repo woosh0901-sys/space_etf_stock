@@ -687,3 +687,185 @@ body {
     font-size: 12px;
   }
 }
+
+/* ETF Card Price */
+.etf-price-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.etf-price {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.etf-change {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.etf-change.positive {
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.15);
+}
+
+.etf-change.negative {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+}
+
+/* Clickable Elements */
+.etf-card.clickable {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.etf-card.clickable:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px var(--glow-blue);
+}
+
+.etf-card-purple.clickable:hover {
+  box-shadow: 0 12px 40px var(--glow-purple);
+}
+
+.click-hint {
+  font-size: 12px;
+  color: var(--accent-cyan);
+  opacity: 0.7;
+}
+
+.stock-row {
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.stock-row:hover {
+  background: rgba(79, 140, 255, 0.1) !important;
+}
+
+/* Chart Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-content {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 1200px;
+  height: 80vh;
+  max-height: 700px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.modal-ticker {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.modal-name {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.modal-close {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--text-primary);
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ef4444;
+}
+
+.chart-container {
+  flex: 1;
+  min-height: 0;
+}
+
+.chart-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-secondary);
+}
+
+.chart-loading span {
+  font-size: 48px;
+  margin-bottom: 16px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.chart-loading p {
+  font-size: 16px;
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+  .modal-content {
+    height: 90vh;
+    max-height: none;
+    border-radius: 12px;
+  }
+
+  .modal-header {
+    padding: 12px 16px;
+  }
+
+  .modal-ticker {
+    font-size: 18px;
+  }
+
+  .modal-name {
+    font-size: 13px;
+  }
+}
