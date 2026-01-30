@@ -1,0 +1,178 @@
+{
+    "etf": {
+        "ticker": "ARKX",
+        "name": "ARK Space Exploration & Innovation ETF",
+        "description": "ARK Invest가 운용하는 우주 탐사 및 혁신 기업 ETF",
+        "lastUpdated": "2026-01-29"
+    },
+    "holdings": [
+        {
+            "ticker": "RKLB",
+            "name": "Rocket Lab USA Inc",
+            "weight": 8.52,
+            "sector": "Launch Services"
+        },
+        {
+            "ticker": "KTOS",
+            "name": "Kratos Defense & Security",
+            "weight": 7.85,
+            "sector": "Defense/Space"
+        },
+        {
+            "ticker": "IRDM",
+            "name": "Iridium Communications",
+            "weight": 6.42,
+            "sector": "Satellite Communications"
+        },
+        {
+            "ticker": "TRMB",
+            "name": "Trimble Inc",
+            "weight": 5.78,
+            "sector": "GPS/Navigation"
+        },
+        {
+            "ticker": "U",
+            "name": "Unity Software Inc",
+            "weight": 5.25,
+            "sector": "3D Simulation"
+        },
+        {
+            "ticker": "ASTS",
+            "name": "AST SpaceMobile Inc",
+            "weight": 4.92,
+            "sector": "Satellite Communications"
+        },
+        {
+            "ticker": "PL",
+            "name": "Planet Labs PBC",
+            "weight": 4.65,
+            "sector": "Earth Observation"
+        },
+        {
+            "ticker": "PATH",
+            "name": "UiPath Inc",
+            "weight": 4.38,
+            "sector": "Automation"
+        },
+        {
+            "ticker": "PRNT",
+            "name": "3D Printing ETF",
+            "weight": 4.12,
+            "sector": "3D Printing"
+        },
+        {
+            "ticker": "LMT",
+            "name": "Lockheed Martin Corp",
+            "weight": 3.85,
+            "sector": "Defense/Space"
+        },
+        {
+            "ticker": "DE",
+            "name": "Deere & Company",
+            "weight": 3.58,
+            "sector": "Precision Agriculture"
+        },
+        {
+            "ticker": "BLDE",
+            "name": "Blade Air Mobility",
+            "weight": 3.25,
+            "sector": "Air Mobility"
+        },
+        {
+            "ticker": "LUNR",
+            "name": "Intuitive Machines Inc",
+            "weight": 3.12,
+            "sector": "Lunar Services"
+        },
+        {
+            "ticker": "BKSY",
+            "name": "BlackSky Technology",
+            "weight": 2.95,
+            "sector": "Earth Observation"
+        },
+        {
+            "ticker": "GRMN",
+            "name": "Garmin Ltd",
+            "weight": 2.78,
+            "sector": "GPS/Navigation"
+        },
+        {
+            "ticker": "JD",
+            "name": "JD.com Inc",
+            "weight": 2.52,
+            "sector": "Drone Delivery"
+        },
+        {
+            "ticker": "RDW",
+            "name": "Redwire Corporation",
+            "weight": 2.35,
+            "sector": "In-Space Manufacturing"
+        },
+        {
+            "ticker": "ASTR",
+            "name": "Astra Space Inc",
+            "weight": 2.18,
+            "sector": "Launch Services"
+        },
+        {
+            "ticker": "SPCE",
+            "name": "Virgin Galactic Holdings",
+            "weight": 2.05,
+            "sector": "Space Tourism"
+        },
+        {
+            "ticker": "AVAV",
+            "name": "AeroVironment Inc",
+            "weight": 1.92,
+            "sector": "Drones/UAV"
+        },
+        {
+            "ticker": "AMZN",
+            "name": "Amazon.com Inc",
+            "weight": 1.85,
+            "sector": "Project Kuiper"
+        },
+        {
+            "ticker": "GOOG",
+            "name": "Alphabet Inc",
+            "weight": 1.72,
+            "sector": "Satellite Internet"
+        },
+        {
+            "ticker": "BA",
+            "name": "Boeing Company",
+            "weight": 1.58,
+            "sector": "Aerospace"
+        },
+        {
+            "ticker": "HON",
+            "name": "Honeywell International",
+            "weight": 1.45,
+            "sector": "Aerospace Components"
+        },
+        {
+            "ticker": "CAT",
+            "name": "Caterpillar Inc",
+            "weight": 1.32,
+            "sector": "Autonomous Equipment"
+        },
+        {
+            "ticker": "TTD",
+            "name": "The Trade Desk Inc",
+            "weight": 1.18,
+            "sector": "Data Analytics"
+        },
+        {
+            "ticker": "NVDA",
+            "name": "NVIDIA Corporation",
+            "weight": 1.05,
+            "sector": "AI/GPU"
+        },
+        {
+            "ticker": "TSM",
+            "name": "Taiwan Semiconductor",
+            "weight": 0.92,
+            "sector": "Semiconductors"
+        }
+    ]
+}
