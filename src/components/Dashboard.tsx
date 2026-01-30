@@ -8,6 +8,7 @@ import ETFCard from '@/components/ETFCard';
 import SearchFilter from '@/components/SearchFilter';
 import HoldingsTable from '@/components/HoldingsTable';
 import ChartModal from '@/components/ChartModal';
+import NewsSection from '@/components/NewsSection';
 
 interface ChartData {
     ticker: string;
@@ -155,6 +156,9 @@ export default function Dashboard() {
                     onStockClick={handleStockClick}
                 />
             </section>
+
+            {/* News Section */}
+            <NewsSection />
 
             {/* Chart Modal */}
             {chartData && (
