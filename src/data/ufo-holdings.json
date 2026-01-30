@@ -6,35 +6,215 @@
     "lastUpdated": "2026-01-29"
   },
   "holdings": [
-    { "ticker": "RKLB", "name": "Rocket Lab USA Inc", "weight": 5.21, "sector": "Launch Services" },
-    { "ticker": "ASTS", "name": "AST SpaceMobile Inc", "weight": 4.85, "sector": "Satellite Communications" },
-    { "ticker": "IRDM", "name": "Iridium Communications", "weight": 4.72, "sector": "Satellite Communications" },
-    { "ticker": "GSAT", "name": "Globalstar Inc", "weight": 4.35, "sector": "Satellite Communications" },
-    { "ticker": "LUNR", "name": "Intuitive Machines Inc", "weight": 4.12, "sector": "Lunar Services" },
-    { "ticker": "BKSY", "name": "BlackSky Technology", "weight": 3.98, "sector": "Earth Observation" },
-    { "ticker": "SPCE", "name": "Virgin Galactic Holdings", "weight": 3.75, "sector": "Space Tourism" },
-    { "ticker": "PL", "name": "Planet Labs PBC", "weight": 3.62, "sector": "Earth Observation" },
-    { "ticker": "SATS", "name": "EchoStar Corporation", "weight": 3.45, "sector": "Satellite Communications" },
-    { "ticker": "VSAT", "name": "Viasat Inc", "weight": 3.28, "sector": "Satellite Communications" },
-    { "ticker": "GILT", "name": "Gilat Satellite Networks", "weight": 2.95, "sector": "Satellite Communications" },
-    { "ticker": "MAXR", "name": "Maxar Technologies", "weight": 2.82, "sector": "Earth Observation" },
-    { "ticker": "MNTS", "name": "Momentus Inc", "weight": 2.65, "sector": "In-Space Services" },
-    { "ticker": "AJRD", "name": "Aerojet Rocketdyne", "weight": 2.58, "sector": "Propulsion" },
-    { "ticker": "KTOS", "name": "Kratos Defense & Security", "weight": 2.45, "sector": "Defense/Space" },
-    { "ticker": "LDOS", "name": "Leidos Holdings Inc", "weight": 2.32, "sector": "Defense/Space" },
-    { "ticker": "NOC", "name": "Northrop Grumman Corp", "weight": 2.25, "sector": "Defense/Space" },
-    { "ticker": "LMT", "name": "Lockheed Martin Corp", "weight": 2.18, "sector": "Defense/Space" },
-    { "ticker": "RTX", "name": "RTX Corporation", "weight": 2.12, "sector": "Defense/Space" },
-    { "ticker": "BA", "name": "Boeing Company", "weight": 2.05, "sector": "Aerospace" },
-    { "ticker": "LHX", "name": "L3Harris Technologies", "weight": 1.98, "sector": "Defense/Space" },
-    { "ticker": "GD", "name": "General Dynamics Corp", "weight": 1.85, "sector": "Defense/Space" },
-    { "ticker": "HII", "name": "Huntington Ingalls", "weight": 1.72, "sector": "Defense" },
-    { "ticker": "TRMB", "name": "Trimble Inc", "weight": 1.65, "sector": "GPS/Navigation" },
-    { "ticker": "GRMN", "name": "Garmin Ltd", "weight": 1.58, "sector": "GPS/Navigation" },
-    { "ticker": "SPR", "name": "Spirit AeroSystems", "weight": 1.45, "sector": "Aerospace" },
-    { "ticker": "TDG", "name": "TransDigm Group", "weight": 1.38, "sector": "Aerospace" },
-    { "ticker": "HEI", "name": "HEICO Corporation", "weight": 1.32, "sector": "Aerospace" },
-    { "ticker": "AVAV", "name": "AeroVironment Inc", "weight": 1.25, "sector": "Drones/UAV" },
-    { "ticker": "RDW", "name": "Redwire Corporation", "weight": 1.18, "sector": "In-Space Manufacturing" }
+    {
+      "ticker": "RKLB",
+      "name": "Rocket Lab USA Inc",
+      "nameKr": "로켓랩",
+      "weight": 5.21,
+      "sector": "Launch Services"
+    },
+    {
+      "ticker": "ASTS",
+      "name": "AST SpaceMobile Inc",
+      "nameKr": "AST 스페이스모바일",
+      "weight": 4.85,
+      "sector": "Satellite Communications"
+    },
+    {
+      "ticker": "IRDM",
+      "name": "Iridium Communications",
+      "nameKr": "이리듐 커뮤니케이션즈",
+      "weight": 4.72,
+      "sector": "Satellite Communications"
+    },
+    {
+      "ticker": "GSAT",
+      "name": "Globalstar Inc",
+      "nameKr": "글로벌스타",
+      "weight": 4.35,
+      "sector": "Satellite Communications"
+    },
+    {
+      "ticker": "LUNR",
+      "name": "Intuitive Machines Inc",
+      "nameKr": "인튜이티브 머신즈",
+      "weight": 4.12,
+      "sector": "Lunar Services"
+    },
+    {
+      "ticker": "BKSY",
+      "name": "BlackSky Technology",
+      "nameKr": "블랙스카이 테크놀로지",
+      "weight": 3.98,
+      "sector": "Earth Observation"
+    },
+    {
+      "ticker": "SPCE",
+      "name": "Virgin Galactic Holdings",
+      "nameKr": "버진 갤럭틱",
+      "weight": 3.75,
+      "sector": "Space Tourism"
+    },
+    {
+      "ticker": "PL",
+      "name": "Planet Labs PBC",
+      "nameKr": "플래닛 랩스",
+      "weight": 3.62,
+      "sector": "Earth Observation"
+    },
+    {
+      "ticker": "SATS",
+      "name": "EchoStar Corporation",
+      "nameKr": "에코스타",
+      "weight": 3.45,
+      "sector": "Satellite Communications"
+    },
+    {
+      "ticker": "VSAT",
+      "name": "Viasat Inc",
+      "nameKr": "비아샛",
+      "weight": 3.28,
+      "sector": "Satellite Communications"
+    },
+    {
+      "ticker": "GILT",
+      "name": "Gilat Satellite Networks",
+      "nameKr": "길랏 새틀라이트",
+      "weight": 2.95,
+      "sector": "Satellite Communications"
+    },
+    {
+      "ticker": "MAXR",
+      "name": "Maxar Technologies",
+      "nameKr": "맥사 테크놀로지스",
+      "weight": 2.82,
+      "sector": "Earth Observation"
+    },
+    {
+      "ticker": "MNTS",
+      "name": "Momentus Inc",
+      "nameKr": "모멘터스",
+      "weight": 2.65,
+      "sector": "In-Space Services"
+    },
+    {
+      "ticker": "AJRD",
+      "name": "Aerojet Rocketdyne",
+      "nameKr": "에어로젯 로켓다인",
+      "weight": 2.58,
+      "sector": "Propulsion"
+    },
+    {
+      "ticker": "KTOS",
+      "name": "Kratos Defense & Security",
+      "nameKr": "크라토스 디펜스",
+      "weight": 2.45,
+      "sector": "Defense/Space"
+    },
+    {
+      "ticker": "LDOS",
+      "name": "Leidos Holdings Inc",
+      "nameKr": "레이도스",
+      "weight": 2.32,
+      "sector": "Defense/Space"
+    },
+    {
+      "ticker": "NOC",
+      "name": "Northrop Grumman Corp",
+      "nameKr": "노스롭 그루먼",
+      "weight": 2.25,
+      "sector": "Defense/Space"
+    },
+    {
+      "ticker": "LMT",
+      "name": "Lockheed Martin Corp",
+      "nameKr": "록히드 마틴",
+      "weight": 2.18,
+      "sector": "Defense/Space"
+    },
+    {
+      "ticker": "RTX",
+      "name": "RTX Corporation",
+      "nameKr": "RTX (레이시온)",
+      "weight": 2.12,
+      "sector": "Defense/Space"
+    },
+    {
+      "ticker": "BA",
+      "name": "Boeing Company",
+      "nameKr": "보잉",
+      "weight": 2.05,
+      "sector": "Aerospace"
+    },
+    {
+      "ticker": "LHX",
+      "name": "L3Harris Technologies",
+      "nameKr": "L3해리스",
+      "weight": 1.98,
+      "sector": "Defense/Space"
+    },
+    {
+      "ticker": "GD",
+      "name": "General Dynamics Corp",
+      "nameKr": "제너럴 다이내믹스",
+      "weight": 1.85,
+      "sector": "Defense/Space"
+    },
+    {
+      "ticker": "HII",
+      "name": "Huntington Ingalls",
+      "nameKr": "헌팅턴 잉걸스",
+      "weight": 1.72,
+      "sector": "Defense"
+    },
+    {
+      "ticker": "TRMB",
+      "name": "Trimble Inc",
+      "nameKr": "트림블",
+      "weight": 1.65,
+      "sector": "GPS/Navigation"
+    },
+    {
+      "ticker": "GRMN",
+      "name": "Garmin Ltd",
+      "nameKr": "가민",
+      "weight": 1.58,
+      "sector": "GPS/Navigation"
+    },
+    {
+      "ticker": "SPR",
+      "name": "Spirit AeroSystems",
+      "nameKr": "스피릿 에어로시스템즈",
+      "weight": 1.45,
+      "sector": "Aerospace"
+    },
+    {
+      "ticker": "TDG",
+      "name": "TransDigm Group",
+      "nameKr": "트랜스다임",
+      "weight": 1.38,
+      "sector": "Aerospace"
+    },
+    {
+      "ticker": "HEI",
+      "name": "HEICO Corporation",
+      "nameKr": "헤이코",
+      "weight": 1.32,
+      "sector": "Aerospace"
+    },
+    {
+      "ticker": "AVAV",
+      "name": "AeroVironment Inc",
+      "nameKr": "에어로바이런먼트",
+      "weight": 1.25,
+      "sector": "Drones/UAV"
+    },
+    {
+      "ticker": "RDW",
+      "name": "Redwire Corporation",
+      "nameKr": "레드와이어",
+      "weight": 1.18,
+      "sector": "In-Space Manufacturing"
+    }
   ]
 }

@@ -9,168 +9,196 @@
         {
             "ticker": "RKLB",
             "name": "Rocket Lab USA Inc",
+            "nameKr": "로켓랩",
             "weight": 8.52,
             "sector": "Launch Services"
         },
         {
             "ticker": "KTOS",
             "name": "Kratos Defense & Security",
+            "nameKr": "크라토스 디펜스",
             "weight": 7.85,
             "sector": "Defense/Space"
         },
         {
             "ticker": "IRDM",
             "name": "Iridium Communications",
+            "nameKr": "이리듐 커뮤니케이션즈",
             "weight": 6.42,
             "sector": "Satellite Communications"
         },
         {
             "ticker": "TRMB",
             "name": "Trimble Inc",
+            "nameKr": "트림블",
             "weight": 5.78,
             "sector": "GPS/Navigation"
         },
         {
             "ticker": "U",
             "name": "Unity Software Inc",
+            "nameKr": "유니티 소프트웨어",
             "weight": 5.25,
             "sector": "3D Simulation"
         },
         {
             "ticker": "ASTS",
             "name": "AST SpaceMobile Inc",
+            "nameKr": "AST 스페이스모바일",
             "weight": 4.92,
             "sector": "Satellite Communications"
         },
         {
             "ticker": "PL",
             "name": "Planet Labs PBC",
+            "nameKr": "플래닛 랩스",
             "weight": 4.65,
             "sector": "Earth Observation"
         },
         {
             "ticker": "PATH",
             "name": "UiPath Inc",
+            "nameKr": "유아이패스",
             "weight": 4.38,
             "sector": "Automation"
         },
         {
             "ticker": "PRNT",
             "name": "3D Printing ETF",
+            "nameKr": "3D 프린팅 ETF",
             "weight": 4.12,
             "sector": "3D Printing"
         },
         {
             "ticker": "LMT",
             "name": "Lockheed Martin Corp",
+            "nameKr": "록히드 마틴",
             "weight": 3.85,
             "sector": "Defense/Space"
         },
         {
             "ticker": "DE",
             "name": "Deere & Company",
+            "nameKr": "디어 앤 컴퍼니",
             "weight": 3.58,
             "sector": "Precision Agriculture"
         },
         {
             "ticker": "BLDE",
             "name": "Blade Air Mobility",
+            "nameKr": "블레이드 에어 모빌리티",
             "weight": 3.25,
             "sector": "Air Mobility"
         },
         {
             "ticker": "LUNR",
             "name": "Intuitive Machines Inc",
+            "nameKr": "인튜이티브 머신즈",
             "weight": 3.12,
             "sector": "Lunar Services"
         },
         {
             "ticker": "BKSY",
             "name": "BlackSky Technology",
+            "nameKr": "블랙스카이 테크놀로지",
             "weight": 2.95,
             "sector": "Earth Observation"
         },
         {
             "ticker": "GRMN",
             "name": "Garmin Ltd",
+            "nameKr": "가민",
             "weight": 2.78,
             "sector": "GPS/Navigation"
         },
         {
             "ticker": "JD",
             "name": "JD.com Inc",
+            "nameKr": "징둥닷컴",
             "weight": 2.52,
             "sector": "Drone Delivery"
         },
         {
             "ticker": "RDW",
             "name": "Redwire Corporation",
+            "nameKr": "레드와이어",
             "weight": 2.35,
             "sector": "In-Space Manufacturing"
         },
         {
             "ticker": "ASTR",
             "name": "Astra Space Inc",
+            "nameKr": "아스트라 스페이스",
             "weight": 2.18,
             "sector": "Launch Services"
         },
         {
             "ticker": "SPCE",
             "name": "Virgin Galactic Holdings",
+            "nameKr": "버진 갤럭틱",
             "weight": 2.05,
             "sector": "Space Tourism"
         },
         {
             "ticker": "AVAV",
             "name": "AeroVironment Inc",
+            "nameKr": "에어로바이런먼트",
             "weight": 1.92,
             "sector": "Drones/UAV"
         },
         {
             "ticker": "AMZN",
             "name": "Amazon.com Inc",
+            "nameKr": "아마존",
             "weight": 1.85,
             "sector": "Project Kuiper"
         },
         {
             "ticker": "GOOG",
             "name": "Alphabet Inc",
+            "nameKr": "알파벳 (구글)",
             "weight": 1.72,
             "sector": "Satellite Internet"
         },
         {
             "ticker": "BA",
             "name": "Boeing Company",
+            "nameKr": "보잉",
             "weight": 1.58,
             "sector": "Aerospace"
         },
         {
             "ticker": "HON",
             "name": "Honeywell International",
+            "nameKr": "하니웰",
             "weight": 1.45,
             "sector": "Aerospace Components"
         },
         {
             "ticker": "CAT",
             "name": "Caterpillar Inc",
+            "nameKr": "캐터필러",
             "weight": 1.32,
             "sector": "Autonomous Equipment"
         },
         {
             "ticker": "TTD",
             "name": "The Trade Desk Inc",
+            "nameKr": "더 트레이드 데스크",
             "weight": 1.18,
             "sector": "Data Analytics"
         },
         {
             "ticker": "NVDA",
             "name": "NVIDIA Corporation",
+            "nameKr": "엔비디아",
             "weight": 1.05,
             "sector": "AI/GPU"
         },
         {
             "ticker": "TSM",
             "name": "Taiwan Semiconductor",
+            "nameKr": "TSMC (대만반도체)",
             "weight": 0.92,
             "sector": "Semiconductors"
         }

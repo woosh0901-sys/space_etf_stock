@@ -4,6 +4,7 @@ import arkxData from '@/data/arkx-holdings.json';
 export interface Holding {
     ticker: string;
     name: string;
+    nameKr: string;
     weight: number;
     sector: string;
 }
@@ -77,4 +78,8 @@ export function getCombinedHoldings(): CombinedHolding[] {
 
 export function getOverlapCount(): number {
     return getCombinedHoldings().filter(h => h.isOverlap).length;
+}
+
+export function getAllTickers(): string[] {
+    return getCombinedHoldings().map(h => h.ticker);
 }
