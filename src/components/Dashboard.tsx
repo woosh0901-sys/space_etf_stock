@@ -10,7 +10,6 @@ import SearchFilter from '@/components/SearchFilter';
 import HoldingsTable from '@/components/HoldingsTable';
 import ChartModal from '@/components/ChartModal';
 import ETFAnalysis from '@/components/ETFAnalysis';
-import TopMovers from '@/components/TopMovers';
 import ThemeToggle from '@/components/ThemeToggle';
 
 interface ChartData {
@@ -166,19 +165,17 @@ export default function Dashboard() {
 
                     <div className="analysis-grid">
                         <div className="analysis-card">
-                            <ETFAnalysis etfTicker="UFO" />
-                            <TopMovers
+                            <ETFAnalysis
+                                etfTicker="UFO"
                                 quotes={quotes}
-                                etf="UFO"
                                 onStockClick={(ticker) => setChartData({ ticker, name: ticker, nameKr: ticker })}
                             />
                         </div>
 
                         <div className="analysis-card">
-                            <ETFAnalysis etfTicker="ARKX" />
-                            <TopMovers
+                            <ETFAnalysis
+                                etfTicker="ARKX"
                                 quotes={quotes}
-                                etf="ARKX"
                                 onStockClick={(ticker) => setChartData({ ticker, name: ticker, nameKr: ticker })}
                             />
                         </div>

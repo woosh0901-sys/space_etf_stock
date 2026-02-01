@@ -2,13 +2,13 @@ import { initializeApp, getApps } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyDmrSGoSNRKzvFas_lkfVgDqtAmmyWXQKA",
-  authDomain: "f1team-581cb.firebaseapp.com",
-  projectId: "f1team-581cb",
-  storageBucket: "f1team-581cb.firebasestorage.app",
-  messagingSenderId: "638113502106",
-  appId: "1:638113502106:web:57a2706c95ccc7774aa023",
-  measurementId: "G-N3CK6GVVJF"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase (싱글톤 패턴)

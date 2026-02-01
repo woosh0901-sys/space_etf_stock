@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import TopMovers from './TopMovers';
+import { StockQuoteMap } from '@/lib/stock-api';
 
 interface ContributorStock {
     ticker: string;
@@ -23,9 +25,11 @@ interface ETFAnalysisData {
 
 interface ETFAnalysisProps {
     etfTicker: 'UFO' | 'ARKX';
+    quotes: StockQuoteMap;
+    onStockClick: (ticker: string) => void;
 }
 
-export default function ETFAnalysis({ etfTicker }: ETFAnalysisProps) {
+export default function ETFAnalysis({ etfTicker, quotes, onStockClick }: ETFAnalysisProps) {
     const [analysis, setAnalysis] = useState<ETFAnalysisData | null>(null);
     const [loading, setLoading] = useState(true);
     const [showDetails, setShowDetails] = useState(false);
@@ -78,53 +82,11 @@ export default function ETFAnalysis({ etfTicker }: ETFAnalysisProps) {
 
             {showDetails && (
                 <div className="analysis-details">
-                    {analysis.topGainers.length > 0 && (
-                        <div className="contributors-section gainers">
-                            <h4>🟢 상승 기여 종목</h4>
-                            <ul className="contributors-list">
-                                {analysis.topGainers.map((stock) => (
-                                    <li key={stock.ticker} className="contributor-item">
-                                        <div className="contributor-info">
-                                            <span className="contributor-ticker">{stock.ticker}</span>
-                                            <span className="contributor-name">{stock.nameKr}</span>
-                                        </div>
-                                        <div className="contributor-stats">
-                                            <span className="contributor-change positive">
-                                                +{stock.changePercent.toFixed(2)}%
-                                            </span>
-                                            <span className="contributor-weight">
-                                                비중 {stock.weight.toFixed(1)}%
-                                            </span>
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
-
-                    {analysis.topLosers.length > 0 && (
-                        <div className="contributors-section losers">
-                            <h4>🔴 하락 기여 종목</h4>
-                            <ul className="contributors-list">
-                                {analysis.topLosers.map((stock) => (
-                                    <li key={stock.ticker} className="contributor-item">
-                                        <div className="contributor-info">
-                                            <span className="contributor-ticker">{stock.ticker}</span>
-                                            <span className="contributor-name">{stock.nameKr}</span>
-                                        </div>
-                                        <div className="contributor-stats">
-                                            <span className="contributor-change negative">
-                                                {stock.changePercent.toFixed(2)}%
-                                            </span>
-                                            <span className="contributor-weight">
-                                                비중 {stock.weight.toFixed(1)}%
-                                            </span>
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
+                    <TopMovers
+                        quotes={quotes}
+                        etf={etfTicker}
+                        onStockClick={onStockClick}
+                    />
                 </div>
             )}
         </div>
