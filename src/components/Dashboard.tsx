@@ -112,6 +112,15 @@ export default function Dashboard() {
                     />
                 </section>
 
+                {/* ETF Analysis Section - 먼저 보여줌 */}
+                <section className="etf-analysis-section">
+                    <h2 className="section-title">📊 ETF 변동 분석</h2>
+                    <div className="etf-analysis-grid">
+                        <ETFAnalysis etfTicker="UFO" />
+                        <ETFAnalysis etfTicker="ARKX" />
+                    </div>
+                </section>
+
                 {/* Stats Banner */}
                 <section className="stats-banner">
                     <div className="stat-item">
@@ -156,15 +165,6 @@ export default function Dashboard() {
                         isLoading={isLoading}
                         onStockClick={handleStockClick}
                     />
-                </section>
-
-                {/* ETF Analysis Section */}
-                <section className="etf-analysis-section">
-                    <h2 className="section-title">📊 ETF 변동 분석</h2>
-                    <div className="etf-analysis-grid">
-                        <ETFAnalysis etfTicker="UFO" />
-                        <ETFAnalysis etfTicker="ARKX" />
-                    </div>
                 </section>
 
                 {/* Chart Modal */}
