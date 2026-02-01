@@ -55,6 +55,20 @@
   --glow-blue: rgba(79, 140, 255, 0.3);
 }
 
+[data-theme='light'] {
+  --bg-primary: #f3f4f6;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+  /* Adjust hero gradient for light mode if needed */
+  --glow-blue: rgba(79, 140, 255, 0.1);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -2288,11 +2302,39 @@ body {
 .list-header-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0 var(--space-2) var(--space-2);
   border-bottom: 1px solid var(--border-color);
   margin-bottom: var(--space-2);
   font-size: var(--text-xs);
   color: var(--text-secondary);
+}
+
+.sort-controls {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.sort-btn {
+  background: none;
+  border: none;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.sort-btn:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.sort-btn.active {
+  color: var(--color-primary);
+  font-weight: 700;
+  background: rgba(79, 140, 255, 0.1);
 }
 
 .text-right {
