@@ -86,6 +86,22 @@ transition: all 0.3s ease;
 
 ---
 
+## 앱 기능 (Features)
+
+| 기능 | 컴포넌트 | 설명 |
+|------|---------|------|
+| ETF 비교 | `Dashboard.tsx` | UFO/ARKX 보유 종목, 중복 표시 |
+| 실시간 주가 | `HoldingsTable.tsx` | 1분마다 갱신 |
+| 차트 모달 | `ChartModal.tsx` | TradingView 연동 |
+| ETF 분석 | `ETFAnalysis.tsx` | 변동 원인 (기여 종목) |
+| ⭐ 관심종목 | `Watchlist.tsx` | localStorage 저장 |
+| 💰 포트폴리오 시뮬레이터 | `PortfolioSimulator.tsx` | UFO/ARKX 비율 조절 |
+| 🏆 Top Movers | `TopMovers.tsx` | 상승/하락 Top 5 |
+| 🔔 실적발표 캘린더 | `EarningsCalendar.tsx` | 예정 일정 표시 |
+| 🌙 다크모드 토글 | `ThemeToggle.tsx` | 테마 전환 |
+
+---
+
 # Security Protocol (보안 프로토콜)
 
 > **⚠️ 이 규칙은 모든 코드 작업에 필수로 적용됩니다.**
