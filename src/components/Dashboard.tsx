@@ -101,14 +101,12 @@ export default function Dashboard() {
                     <ETFCard
                         etf={ufoData}
                         overlapCount={overlapCount}
-                        color="blue"
                         quote={quotes['UFO']}
                         onClick={() => handleETFClick('UFO')}
                     />
                     <ETFCard
                         etf={arkxData}
                         overlapCount={overlapCount}
-                        color="purple"
                         quote={quotes['ARKX']}
                         onClick={() => handleETFClick('ARKX')}
                     />

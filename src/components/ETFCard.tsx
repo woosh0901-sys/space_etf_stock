@@ -6,17 +6,16 @@ import { StockQuote } from '@/lib/stock-api';
 interface ETFCardProps {
     etf: ETFData;
     overlapCount?: number;
-    color: 'blue' | 'purple';
     quote?: StockQuote | null;
     onClick?: () => void;
 }
 
-export default function ETFCard({ etf, overlapCount, color, quote, onClick }: ETFCardProps) {
+export default function ETFCard({ etf, overlapCount, quote, onClick }: ETFCardProps) {
     const totalWeight = etf.holdings.reduce((sum, h) => sum + h.weight, 0);
 
     return (
         <div
-            className={`etf-card etf-card-${color} ${onClick ? 'clickable' : ''}`}
+            className={`etf-card etf-card-blue ${onClick ? 'clickable' : ''}`}
             onClick={onClick}
         >
             <div className="etf-card-header">

@@ -47,6 +47,45 @@ src/
 
 ---
 
+## 디자인 시스템 (Design Pattern)
+
+> **7가지 원칙으로 일관된 UI 유지**
+
+### 디자인 토큰 (CSS Variables)
+
+| 카테고리 | 토큰 | 값 |
+|---------|------|-----|
+| **8px 그리드** | `--space-1` ~ `--space-10` | 8px ~ 80px (8px 단위) |
+| **Radius** | `--radius-sm/md/lg` | 8px / 12px / 16px |
+| **그림자** | `--shadow-sm/md/lg` | 3단계 box-shadow |
+| **컬러** | `--color-primary` | #4f8cff (파랑) |
+| | `--color-accent` | #06b6d4 (청록) |
+| | `--color-success` | #22c55e (초록) |
+| | `--color-danger` | #ef4444 (빨강) |
+| **타이포** | `--text-xs` ~ `--text-3xl` | 12px ~ 40px |
+| **애니메이션** | `--transition-fast/normal/slow` | 200ms / 250ms / 300ms |
+
+### 코딩 규칙
+
+```css
+/* ✅ DO: 토큰 사용 */
+padding: var(--space-4);
+border-radius: var(--radius-lg);
+transition: all var(--transition-slow);
+
+/* ❌ DON'T: 하드코딩 */
+padding: 32px;
+border-radius: 20px;
+transition: all 0.3s ease;
+```
+
+### 금지 항목
+- ❌ 보라색 (`#a855f7`) 사용 금지
+- ❌ 네온/그라데이션 효과 금지
+- ❌ 5개 초과 색상 사용 금지
+
+---
+
 # Security Protocol (보안 프로토콜)
 
 > **⚠️ 이 규칙은 모든 코드 작업에 필수로 적용됩니다.**
