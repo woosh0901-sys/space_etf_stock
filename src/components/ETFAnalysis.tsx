@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 interface ContributorStock {
     ticker: string;
@@ -30,11 +30,7 @@ export default function ETFAnalysis({ etfTicker }: ETFAnalysisProps) {
     const [loading, setLoading] = useState(true);
     const [showDetails, setShowDetails] = useState(false);
 
-    useEffect(() => {
-        loadAnalysis();
-    }, [etfTicker]);
-
-    const loadAnalysis = async () => {
+    const loadAnalysis = useCallback(async () => {
         setLoading(true);
         try {
             const response = await fetch(`/api/etf-analysis?etf=${etfTicker}`);
@@ -47,7 +43,11 @@ export default function ETFAnalysis({ etfTicker }: ETFAnalysisProps) {
         } finally {
             setLoading(false);
         }
-    };
+    }, [etfTicker]);
+
+    useEffect(() => {
+        loadAnalysis();
+    }, [loadAnalysis]);
 
     if (loading) {
         return (

@@ -10,6 +10,11 @@ import SearchFilter from '@/components/SearchFilter';
 import HoldingsTable from '@/components/HoldingsTable';
 import ChartModal from '@/components/ChartModal';
 import ETFAnalysis from '@/components/ETFAnalysis';
+import Watchlist from '@/components/Watchlist';
+import PortfolioSimulator from '@/components/PortfolioSimulator';
+import TopMovers from '@/components/TopMovers';
+import EarningsCalendar from '@/components/EarningsCalendar';
+import ThemeToggle from '@/components/ThemeToggle';
 
 interface ChartData {
     ticker: string;
@@ -167,6 +172,22 @@ export default function Dashboard() {
                     />
                 </section>
 
+                {/* Top Movers */}
+                <section className="features-section">
+                    <h2 className="section-title">🏆 오늘의 Top Movers</h2>
+                    <TopMovers quotes={quotes} onStockClick={(ticker) => setChartData({ ticker, name: ticker, nameKr: ticker })} />
+                </section>
+
+                {/* Features Row: Watchlist, Portfolio Simulator, Earnings Calendar */}
+                <section className="features-row">
+                    <Watchlist quotes={quotes} onStockClick={(ticker) => setChartData({ ticker, name: ticker, nameKr: ticker })} />
+                    <PortfolioSimulator quotes={quotes} />
+                </section>
+
+                <section className="features-row">
+                    <EarningsCalendar />
+                </section>
+
                 {/* Chart Modal */}
                 {chartData && (
                     <ChartModal
@@ -177,6 +198,9 @@ export default function Dashboard() {
                         onClose={() => setChartData(null)}
                     />
                 )}
+
+                {/* Theme Toggle */}
+                <ThemeToggle />
 
                 {/* Footer */}
                 <footer className="dashboard-footer">
