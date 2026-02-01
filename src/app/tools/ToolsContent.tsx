@@ -42,10 +42,14 @@ export default function ToolsContent() {
     return (
         <>
             <TabNavigation />
-            <div className="tools-page">
-                <header className="tools-header">
-                    <h1>🔧 투자 도구</h1>
-                    <p>포트폴리오 시뮬레이션, 관심종목 관리, 계산기</p>
+            <div className="dashboard">
+                <header className="hero-simple">
+                    <div className="hero-content-simple">
+                        <h1>투자 도구</h1>
+                        <span className="last-refresh-simple" style={{ fontSize: '14px' }}>
+                            포트폴리오 시뮬레이션 및 종목 분석
+                        </span>
+                    </div>
                 </header>
 
                 {/* 메인 도구: 시뮬레이터 + 관심종목 */}
