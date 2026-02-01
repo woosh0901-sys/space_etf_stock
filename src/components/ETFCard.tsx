@@ -8,48 +8,50 @@ interface ETFCardProps {
     overlapCount?: number;
     quote?: StockQuote | null;
     onClick?: () => void;
+    rank?: number | string;
 }
 
-export default function ETFCard({ etf, overlapCount, quote, onClick }: ETFCardProps) {
+export default function ETFCard({ etf, overlapCount, quote, onClick, rank }: ETFCardProps) {
     const totalWeight = etf.holdings.reduce((sum, h) => sum + h.weight, 0);
 
     return (
         <div
-            className={`etf-card etf-card-blue ${onClick ? 'clickable' : ''}`}
+            className={`etf-card-new ${onClick ? 'clickable' : ''}`}
             onClick={onClick}
         >
-            <div className="etf-card-header">
-                <span className="etf-ticker">{etf.etf.ticker}</span>
-                {overlapCount !== undefined && overlapCount > 0 && (
-                    <span className="overlap-count">{overlapCount} 중복</span>
-                )}
+            <div className="card-header-row">
+                {rank && <span className="rank-badge">{rank}</span>}
+                <span className="etf-ticker-new">{etf.etf.ticker}</span>
             </div>
-            <h3 className="etf-name">{etf.etf.name}</h3>
-            <p className="etf-description">{etf.etf.description}</p>
 
-            {/* ETF 가격 정보 */}
+            <h3 className="etf-name-new">{etf.etf.name}</h3>
+
+            {/* Price & Change (Big) */}
             {quote && (
-                <div className="etf-price-section">
-                    <span className="etf-price">${quote.price.toFixed(2)}</span>
-                    <span className={`etf-change ${quote.changePercent >= 0 ? 'positive' : 'negative'}`}>
+                <div className="big-stats-row">
+                    <span className="big-price">${quote.price.toFixed(2)}</span>
+                    <span className={`big-change ${quote.changePercent >= 0 ? 'positive' : 'negative'}`}>
                         {quote.changePercent >= 0 ? '+' : ''}{quote.changePercent.toFixed(2)}%
                     </span>
                 </div>
             )}
 
-            <div className="etf-stats">
-                <div className="stat">
-                    <span className="stat-value">{etf.holdings.length}</span>
-                    <span className="stat-label">종목 수</span>
+            {/* Info Footer */}
+            <div className="card-info-row">
+                <div className="info-item">
+                    <span className="info-label">보유종목</span>
+                    <span className="info-val">{etf.holdings.length}개</span>
                 </div>
-                <div className="stat">
-                    <span className="stat-value">{totalWeight.toFixed(1)}%</span>
-                    <span className="stat-label">총 비중</span>
+                <div className="info-item">
+                    <span className="info-label">업데이트</span>
+                    <span className="info-val">{etf.etf.lastUpdated.split(' ')[0]}</span>
                 </div>
-            </div>
-            <div className="etf-footer">
-                <span className="last-updated">업데이트: {etf.etf.lastUpdated}</span>
-                {onClick && <span className="click-hint">클릭하여 차트 보기 →</span>}
+                {overlapCount !== undefined && overlapCount > 0 && (
+                    <div className="info-item">
+                        <span className="info-label">중복</span>
+                        <span className="info-val" style={{ color: 'var(--color-primary)' }}>{overlapCount}개</span>
+                    </div>
+                )}
             </div>
         </div>
     );

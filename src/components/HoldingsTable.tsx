@@ -44,95 +44,75 @@ export default function HoldingsTable({ holdings, filter, searchTerm, quotes, is
     };
 
     return (
-        <div className="holdings-table-container">
-            <div className="table-header">
-                <span className="result-count">{filtered.length}개 종목</span>
-                {isLoading && <span className="loading-indicator">📡 주가 로딩 중...</span>}
+        <div className="holdings-container">
+            <h2 className="section-title">📊 보유 종목 현황</h2>
+
+            <div className="holdings-tabs-modern">
+                <button
+                    className={`modern-tab ${filter === 'all' ? 'active' : ''}`}
+                    onClick={() => {/* Parent handles filter logic via props, but tabs here for UI consistency */ }}
+                    style={{ display: 'none' }}
+                >
+                    {/* Tabs are handled by SearchFilter in parent, hiding here or we need to lift state up properly if we want tabs here. 
+                       Currently Filter is passed as prop. Let's keep title only for now or re-implement tabs if user wants them here.
+                       Based on design, tabs might be up top. Let's stick to list view.
+                   */}
+                </button>
+                <span className="result-count" style={{ marginBottom: '10px', display: 'block', fontSize: '12px', color: 'var(--text-secondary)' }}>
+                    총 {filtered.length}개 종목
+                </span>
             </div>
-            <table className="holdings-table">
-                <thead>
-                    <tr>
-                        <th>티커</th>
-                        <th>회사명</th>
-                        <th>섹터</th>
-                        <th className="weight-col">UFO %</th>
-                        <th className="weight-col">ARKX %</th>
-                        <th className="price-col">현재가</th>
-                        <th className="change-col">등락률</th>
-                        <th>상태</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filtered.map(h => {
-                        const quote = quotes[h.ticker];
-                        return (
-                            <tr
-                                key={h.ticker}
-                                className={`${h.isOverlap ? 'overlap-row' : ''} stock-row`}
-                                onClick={() => onStockClick(h)}
-                            >
-                                <td className="ticker-cell">
-                                    <span className="ticker">{h.ticker}</span>
-                                </td>
-                                <td className="name-cell">
-                                    <span className="name-kr">{h.nameKr}</span>
-                                    <span className="name-en">({h.name})</span>
-                                </td>
-                                <td className="sector-cell">
-                                    <span className="sector-badge">{h.sector}</span>
-                                </td>
-                                <td className="weight-col">
-                                    {h.ufoWeight !== null ? (
-                                        <span className="weight ufo-weight">{h.ufoWeight.toFixed(2)}%</span>
-                                    ) : (
-                                        <span className="weight-empty">-</span>
-                                    )}
-                                </td>
-                                <td className="weight-col">
-                                    {h.arkxWeight !== null ? (
-                                        <span className="weight arkx-weight">{h.arkxWeight.toFixed(2)}%</span>
-                                    ) : (
-                                        <span className="weight-empty">-</span>
-                                    )}
-                                </td>
-                                <td className="price-col">
-                                    {quote ? (
-                                        <span className="price">${quote.price.toFixed(2)}</span>
-                                    ) : isLoading ? (
-                                        <span className="price-loading">...</span>
-                                    ) : (
-                                        <span className="price-empty">-</span>
-                                    )}
-                                </td>
-                                <td className="change-col">
-                                    {quote ? (
-                                        <span className={`change ${quote.changePercent >= 0 ? 'positive' : 'negative'}`}>
-                                            {formatChange(quote.change, quote.changePercent)}
+
+            <div className="holdings-list-modern">
+                {/* Header Row */}
+                <div className="list-header-row">
+                    <span>종목 (티커/명)</span>
+                    <span className="text-right">현재가 / 등락률</span>
+                </div>
+
+                {filtered.map((h, index) => {
+                    const quote = quotes[h.ticker];
+                    const change = quote ? quote.changePercent : 0;
+                    const price = quote ? quote.price : 0;
+
+                    return (
+                        <div
+                            key={`${h.ticker}-${index}`}
+                            className="list-item-modern"
+                            onClick={() => onStockClick(h)}
+                        >
+                            <div className="item-rank">{index + 1}</div>
+
+                            <div className="item-info">
+                                <div className="item-top">
+                                    <span className="item-ticker">{h.ticker}</span>
+                                    {h.isOverlap && <span className="item-etf-badge" style={{ color: 'var(--color-primary)' }}>중복</span>}
+                                </div>
+                                <span className="item-name">
+                                    {h.nameKr} <span style={{ opacity: 0.7 }}>({h.name})</span>
+                                </span>
+                            </div>
+
+                            <div className="item-price-col">
+                                {quote ? (
+                                    <>
+                                        <span className="item-price">${price.toFixed(2)}</span>
+                                        <span className={`item-change ${change >= 0 ? 'positive' : 'negative'}`}>
+                                            {formatChange(quote.change, change)}
                                         </span>
-                                    ) : isLoading ? (
-                                        <span className="change-loading">...</span>
-                                    ) : (
-                                        <span className="change-empty">-</span>
-                                    )}
-                                </td>
-                                <td>
-                                    {h.isOverlap ? (
-                                        <span className="overlap-badge">🔗 중복</span>
-                                    ) : h.ufoWeight !== null ? (
-                                        <span className="ufo-only-badge">UFO</span>
-                                    ) : (
-                                        <span className="arkx-only-badge">ARKX</span>
-                                    )}
-                                </td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+                                    </>
+                                ) : (
+                                    <span className="price-loading">...</span>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
             {filtered.length === 0 && (
-                <div className="no-results">
-                    <span>🔍</span>
-                    <p>검색 결과가 없습니다</p>
+                <div className="no-results" style={{ padding: '40px', textAlign: 'center', color: 'var(--text-secondary)' }}>
+                    <p>검색 결과가 없습니다.</p>
                 </div>
             )}
         </div>

@@ -15,52 +15,72 @@ export default function SearchFilter({
     onFilterChange,
     overlapCount
 }: SearchFilterProps) {
+    const KEYWORDS = ['방산', '위성', '로켓', '우주탐사', '통신', '반도체', '초소형위성', '군사', '민간우주'];
+
     return (
         <div className="search-filter-container">
-            <div className="search-box">
-                <span className="search-icon">🔍</span>
-                <input
-                    type="text"
-                    placeholder="티커, 회사명, 섹터로 검색..."
-                    value={searchTerm}
-                    onChange={(e) => onSearchChange(e.target.value)}
-                    className="search-input"
-                />
-                {searchTerm && (
-                    <button
-                        className="clear-btn"
-                        onClick={() => onSearchChange('')}
-                    >
-                        ✕
-                    </button>
-                )}
+            {/* Keyword Chips */}
+            <div className="keyword-chips-wrapper">
+                <span className="chips-label">인기 키워드</span>
+                <div className="keyword-chips">
+                    {KEYWORDS.map(keyword => (
+                        <button
+                            key={keyword}
+                            className="keyword-chip"
+                            onClick={() => onSearchChange(keyword)}
+                        >
+                            #{keyword}
+                        </button>
+                    ))}
+                </div>
             </div>
 
-            <div className="filter-buttons">
-                <button
-                    className={`filter-btn ${activeFilter === 'all' ? 'active' : ''}`}
-                    onClick={() => onFilterChange('all')}
-                >
-                    전체
-                </button>
-                <button
-                    className={`filter-btn filter-ufo ${activeFilter === 'ufo' ? 'active' : ''}`}
-                    onClick={() => onFilterChange('ufo')}
-                >
-                    UFO
-                </button>
-                <button
-                    className={`filter-btn filter-arkx ${activeFilter === 'arkx' ? 'active' : ''}`}
-                    onClick={() => onFilterChange('arkx')}
-                >
-                    ARKX
-                </button>
-                <button
-                    className={`filter-btn filter-overlap ${activeFilter === 'overlap' ? 'active' : ''}`}
-                    onClick={() => onFilterChange('overlap')}
-                >
-                    🔗 중복 ({overlapCount})
-                </button>
+            <div className="search-controls">
+                <div className="search-box">
+                    <span className="search-icon">🔍</span>
+                    <input
+                        type="text"
+                        placeholder="티커, 회사명, 섹터로 검색..."
+                        value={searchTerm}
+                        onChange={(e) => onSearchChange(e.target.value)}
+                        className="search-input"
+                    />
+                    {searchTerm && (
+                        <button
+                            className="clear-btn"
+                            onClick={() => onSearchChange('')}
+                        >
+                            ✕
+                        </button>
+                    )}
+                </div>
+
+                <div className="filter-buttons">
+                    <button
+                        className={`filter-btn ${activeFilter === 'all' ? 'active' : ''}`}
+                        onClick={() => onFilterChange('all')}
+                    >
+                        전체
+                    </button>
+                    <button
+                        className={`filter-btn filter-ufo ${activeFilter === 'ufo' ? 'active' : ''}`}
+                        onClick={() => onFilterChange('ufo')}
+                    >
+                        UFO
+                    </button>
+                    <button
+                        className={`filter-btn filter-arkx ${activeFilter === 'arkx' ? 'active' : ''}`}
+                        onClick={() => onFilterChange('arkx')}
+                    >
+                        ARKX
+                    </button>
+                    <button
+                        className={`filter-btn filter-overlap ${activeFilter === 'overlap' ? 'active' : ''}`}
+                        onClick={() => onFilterChange('overlap')}
+                    >
+                        🔗 중복 ({overlapCount})
+                    </button>
+                </div>
             </div>
         </div>
     );

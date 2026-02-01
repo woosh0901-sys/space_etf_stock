@@ -77,22 +77,17 @@ export default function Dashboard() {
         <>
             <TabNavigation />
             <div className="dashboard">
-                {/* Hero Section */}
-                <header className="hero">
-                    <div className="hero-bg"></div>
-                    <div className="hero-content">
-                        <span className="hero-icon">🚀</span>
+                {/* Hero Section (Simplified) */}
+                <header className="hero-simple">
+                    <div className="hero-content-simple">
                         <h1>Space ETF Dashboard</h1>
-                        <p className="hero-subtitle">
-                            UFO & ARKX 보유 종목을 한눈에
-                        </p>
                         {lastUpdated && (
-                            <p className="last-refresh">
-                                마지막 업데이트: {lastUpdated.toLocaleTimeString('ko-KR')}
-                                <button onClick={loadQuotes} className="refresh-btn" disabled={isLoading}>
-                                    🔄 새로고침
+                            <span className="last-refresh-simple">
+                                {lastUpdated.toLocaleTimeString('ko-KR')} 기준
+                                <button onClick={loadQuotes} className="refresh-btn-simple" disabled={isLoading}>
+                                    🔄
                                 </button>
-                            </p>
+                            </span>
                         )}
                     </div>
                 </header>
