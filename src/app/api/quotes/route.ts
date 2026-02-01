@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { AppError, handleApiError } from '@/lib/error';
 
 const YAHOO_FINANCE_BASE = 'https://query1.finance.yahoo.com/v8/finance/chart';
 
-export async function GET(request: NextRequest) {
+async function getQuotes(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const symbols = searchParams.get('symbols');
 
     if (!symbols) {
-        return NextResponse.json({ error: 'No symbols provided' }, { status: 400 });
+        throw new AppError('validation', 400, 'No symbols provided');
     }
 
     const tickers = symbols.split(',').slice(0, 50); // 최대 50개
@@ -61,4 +62,12 @@ export async function GET(request: NextRequest) {
     await Promise.all(promises);
 
     return NextResponse.json({ quotes });
+}
+
+export async function GET(request: NextRequest) {
+    try {
+        return await getQuotes(request);
+    } catch (error) {
+        return handleApiError(error);
+    }
 }

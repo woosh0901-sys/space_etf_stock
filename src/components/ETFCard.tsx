@@ -12,7 +12,6 @@ interface ETFCardProps {
 }
 
 export default function ETFCard({ etf, overlapCount, quote, onClick, rank }: ETFCardProps) {
-    const totalWeight = etf.holdings.reduce((sum, h) => sum + h.weight, 0);
 
     return (
         <div

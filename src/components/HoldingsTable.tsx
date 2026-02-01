@@ -10,6 +10,8 @@ interface HoldingsTableProps {
     quotes: StockQuoteMap;
     onStockClick: (holding: CombinedHolding) => void;
     searchTerm: string;
+    filter: 'all' | 'ufo' | 'arkx' | 'overlap';
+    isLoading?: boolean;
 }
 
 // Keyword Mapping for Semantic Search
@@ -25,7 +27,7 @@ const KEYWORD_MAP: Record<string, string[]> = {
     '민간우주': ['tourism', 'service', 'commercial', 'virgin'],
 };
 
-export default function HoldingsTable({ holdings, quotes, onStockClick, searchTerm }: HoldingsTableProps) {
+export default function HoldingsTable({ holdings, quotes, onStockClick, searchTerm, filter, isLoading: _isLoading }: HoldingsTableProps) {
     const [sortConfig, setSortConfig] = useState<{ key: 'rank' | 'price' | 'change', dir: 'asc' | 'desc' }>({ key: 'rank', dir: 'asc' });
     const { isInWatchlist, toggleWatchlist } = useWatchlist();
 
@@ -45,6 +47,15 @@ export default function HoldingsTable({ holdings, quotes, onStockClick, searchTe
         const lowerTerm = searchTerm.toLowerCase().trim();
 
         return holdings.filter(h => {
+            // 0. ETF Filter
+            let matchesFilter = true;
+            switch (filter) {
+                case 'ufo': matchesFilter = h.ufoWeight !== null; break;
+                case 'arkx': matchesFilter = h.arkxWeight !== null; break;
+                case 'overlap': matchesFilter = h.isOverlap; break;
+            }
+            if (!matchesFilter) return false;
+
             if (!lowerTerm) return true;
 
             // 1. Direct Match (Ticker, Name, Sector)
@@ -63,10 +74,10 @@ export default function HoldingsTable({ holdings, quotes, onStockClick, searchTe
 
             return matchesDirect || matchesSemantic;
         });
-    }, [holdings, searchTerm]);
+    }, [holdings, searchTerm, filter]);
 
     const sortedHoldings = useMemo(() => {
-        let sorted = [...filtered];
+        const sorted = [...filtered];
         if (sortConfig.key === 'price') {
             sorted.sort((a, b) => {
                 const priceA = quotes[a.ticker]?.price || 0;
