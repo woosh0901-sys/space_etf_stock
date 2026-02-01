@@ -46,9 +46,6 @@ export default function TopMovers({ quotes, etf, onStockClick }: TopMoversProps)
 
     return (
         <div className="top-movers-etf">
-            <div className="movers-header">
-                <span className="etf-badge">{etf}</span>
-            </div>
             <div className="movers-columns">
                 <div className="movers-column gainers">
                     <h4>🚀 상승 Top 5</h4>
