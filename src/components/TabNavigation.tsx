@@ -13,6 +13,7 @@ interface Tab {
 const TABS: Tab[] = [
     { id: 'dashboard', label: '대시보드', icon: '🚀', href: '/' },
     { id: 'tools', label: '도구', icon: '🔧', href: '/tools' },
+    { id: 'calendar', label: '캘린더', icon: '📅', href: '/calendar' },
     { id: 'news', label: '뉴스', icon: '📰', href: '/news' },
 ];
 

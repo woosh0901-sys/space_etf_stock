@@ -2289,3 +2289,230 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== RETURN CALCULATOR ===== */
+.return-calculator {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.return-calculator .tool-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.calc-mode-tabs {
+  display: flex;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+  background: var(--bg-secondary);
+  padding: 4px;
+  border-radius: var(--radius-md);
+}
+
+.calc-mode-tabs button {
+  flex: 1;
+  padding: 10px var(--space-2);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.calc-mode-tabs button:hover {
+  color: var(--text-primary);
+}
+
+.calc-mode-tabs button.active {
+  background: var(--color-primary);
+  color: white;
+}
+
+.calc-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.calc-results {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.calc-results .result-row.highlight {
+  background: rgba(79, 140, 255, 0.1);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2);
+  margin: -8px;
+  margin-bottom: var(--space-1);
+}
+
+.calc-results .result-row.highlight span:last-child {
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.calc-note {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* ===== SECTOR ALLOCATION ===== */
+.sector-allocation {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.sector-allocation .tool-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.sector-controls {
+  display: flex;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+}
+
+.sector-controls button {
+  padding: 8px var(--space-2);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.sector-controls button:hover {
+  color: var(--text-primary);
+}
+
+.sector-controls button.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.sector-legend {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.legend-ufo {
+  color: var(--color-primary);
+}
+
+.legend-arkx {
+  color: var(--color-accent);
+}
+
+.sector-bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.sector-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.sector-name {
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.name-kr {
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.sector-bar-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sector-bar-container.stacked .bar-row {
+  display: flex;
+  align-items: center;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  height: 18px;
+}
+
+.sector-bar {
+  height: 100%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 6px;
+  min-width: 4px;
+  transition: width var(--transition-normal);
+}
+
+.sector-bar.ufo {
+  background: linear-gradient(90deg, var(--color-primary), rgba(79, 140, 255, 0.7));
+}
+
+.sector-bar.arkx {
+  background: linear-gradient(90deg, var(--color-accent), rgba(6, 182, 212, 0.7));
+}
+
+.bar-label {
+  font-size: 10px;
+  color: white;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.bar-total {
+  margin-left: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.sector-note {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .sector-name {
+    width: 70px;
+  }
+
+  .bar-label {
+    display: none;
+  }
+}

@@ -3,10 +3,12 @@
 import TabNavigation from '@/components/TabNavigation';
 import Watchlist from '@/components/Watchlist';
 import PortfolioSimulator from '@/components/PortfolioSimulator';
-import TopMovers from '@/components/TopMovers';
-import EarningsCalendar from '@/components/EarningsCalendar';
-import ThemeToggle from '@/components/ThemeToggle';
+import CurrencyConverter from '@/components/CurrencyConverter';
+import FeeCalculator from '@/components/FeeCalculator';
+import ReturnCalculator from '@/components/ReturnCalculator';
+import SectorAllocation from '@/components/SectorAllocation';
 import ChartModal from '@/components/ChartModal';
+import ThemeToggle from '@/components/ThemeToggle';
 import { useState, useEffect } from 'react';
 import { fetchStockQuotes, StockQuoteMap } from '@/lib/stock-api';
 import { getAllTickers } from '@/lib/etf-data';
@@ -19,27 +21,23 @@ interface ChartData {
 
 export default function ToolsContent() {
     const [quotes, setQuotes] = useState<StockQuoteMap>({});
-    const [isLoading, setIsLoading] = useState(true);
     const [chartData, setChartData] = useState<ChartData | null>(null);
 
     useEffect(() => {
+        const loadQuotes = async () => {
+            try {
+                const tickers = [...getAllTickers(), 'UFO', 'ARKX'];
+                const fetchedQuotes = await fetchStockQuotes(tickers);
+                setQuotes(fetchedQuotes);
+            } catch (error) {
+                console.error('Failed to load quotes:', error);
+            }
+        };
+
         loadQuotes();
         const interval = setInterval(loadQuotes, 60000);
         return () => clearInterval(interval);
     }, []);
-
-    const loadQuotes = async () => {
-        setIsLoading(true);
-        try {
-            const tickers = [...getAllTickers(), 'UFO', 'ARKX'];
-            const fetchedQuotes = await fetchStockQuotes(tickers);
-            setQuotes(fetchedQuotes);
-        } catch (error) {
-            console.error('Failed to load quotes:', error);
-        } finally {
-            setIsLoading(false);
-        }
-    };
 
     return (
         <>
@@ -47,19 +45,10 @@ export default function ToolsContent() {
             <div className="tools-page">
                 <header className="tools-header">
                     <h1>🔧 투자 도구</h1>
-                    <p>관심종목 관리, 포트폴리오 시뮬레이션, 시장 분석 도구</p>
+                    <p>포트폴리오 시뮬레이션, 관심종목 관리, 계산기</p>
                 </header>
 
-                {/* Top Movers */}
-                <section className="tools-section">
-                    <h2 className="section-title">🏆 오늘의 Top Movers</h2>
-                    <TopMovers
-                        quotes={quotes}
-                        onStockClick={(ticker) => setChartData({ ticker, name: ticker, nameKr: ticker })}
-                    />
-                </section>
-
-                {/* Tools Grid */}
+                {/* 메인 도구: 시뮬레이터 + 관심종목 */}
                 <section className="tools-grid">
                     <div className="tools-grid-item">
                         <PortfolioSimulator quotes={quotes} />
@@ -72,9 +61,24 @@ export default function ToolsContent() {
                     </div>
                 </section>
 
-                {/* Earnings Calendar */}
-                <section className="tools-section">
-                    <EarningsCalendar />
+                {/* 계산기 도구 */}
+                <section className="tools-grid">
+                    <div className="tools-grid-item">
+                        <CurrencyConverter />
+                    </div>
+                    <div className="tools-grid-item">
+                        <FeeCalculator />
+                    </div>
+                </section>
+
+                {/* 수익률 & 섹터 분석 */}
+                <section className="tools-grid">
+                    <div className="tools-grid-item">
+                        <ReturnCalculator />
+                    </div>
+                    <div className="tools-grid-item">
+                        <SectorAllocation />
+                    </div>
                 </section>
 
                 {/* Chart Modal */}
@@ -88,7 +92,6 @@ export default function ToolsContent() {
                     />
                 )}
 
-                {/* Theme Toggle */}
                 <ThemeToggle />
             </div>
         </>

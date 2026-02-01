@@ -10,6 +10,7 @@ import SearchFilter from '@/components/SearchFilter';
 import HoldingsTable from '@/components/HoldingsTable';
 import ChartModal from '@/components/ChartModal';
 import ETFAnalysis from '@/components/ETFAnalysis';
+import TopMovers from '@/components/TopMovers';
 import ThemeToggle from '@/components/ThemeToggle';
 
 interface ChartData {
@@ -113,15 +114,6 @@ export default function Dashboard() {
                     />
                 </section>
 
-                {/* ETF Analysis Section - 먼저 보여줌 */}
-                <section className="etf-analysis-section">
-                    <h2 className="section-title">📊 ETF 변동 분석</h2>
-                    <div className="etf-analysis-grid">
-                        <ETFAnalysis etfTicker="UFO" />
-                        <ETFAnalysis etfTicker="ARKX" />
-                    </div>
-                </section>
-
                 {/* Stats Banner */}
                 <section className="stats-banner">
                     <div className="stat-item">
@@ -166,6 +158,31 @@ export default function Dashboard() {
                         isLoading={isLoading}
                         onStockClick={handleStockClick}
                     />
+                </section>
+
+                {/* ETF 분석 섹션 */}
+                <section className="analysis-section">
+                    <h2 className="section-title">📊 ETF 변동 분석 & Top Movers</h2>
+
+                    <div className="analysis-grid">
+                        <div className="analysis-card">
+                            <ETFAnalysis etfTicker="UFO" />
+                            <TopMovers
+                                quotes={quotes}
+                                etf="UFO"
+                                onStockClick={(ticker) => setChartData({ ticker, name: ticker, nameKr: ticker })}
+                            />
+                        </div>
+
+                        <div className="analysis-card">
+                            <ETFAnalysis etfTicker="ARKX" />
+                            <TopMovers
+                                quotes={quotes}
+                                etf="ARKX"
+                                onStockClick={(ticker) => setChartData({ ticker, name: ticker, nameKr: ticker })}
+                            />
+                        </div>
+                    </div>
                 </section>
 
                 {/* Chart Modal */}
