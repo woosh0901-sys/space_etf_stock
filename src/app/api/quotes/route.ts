@@ -41,7 +41,16 @@ async function getQuotes(request: NextRequest) {
             }
 
             const meta = result.meta;
-            const price = meta.regularMarketPrice ?? 0;
+            const marketState = meta.marketState || 'CLOSED';
+
+            let price = meta.regularMarketPrice ?? 0;
+            // 프리장/애프터마켓 가격 우선 적용
+            if (marketState === 'PRE' && meta.preMarketPrice) {
+                price = meta.preMarketPrice;
+            } else if ((marketState === 'POST' || marketState === 'POSTPOST') && meta.postMarketPrice) {
+                price = meta.postMarketPrice;
+            }
+
             const previousClose = meta.chartPreviousClose ?? meta.previousClose ?? price;
             const change = price - previousClose;
             const changePercent = previousClose > 0 ? (change / previousClose) * 100 : 0;
