@@ -40,7 +40,7 @@ export default function ChartModal({ ticker, name, nameKr, isOpen, onClose }: Ch
         script.innerHTML = JSON.stringify({
             autosize: true,
             symbol: ticker,
-            interval: 'D',
+            interval: '15',
             timezone: 'Asia/Seoul',
             theme: 'dark',
             style: '1',
