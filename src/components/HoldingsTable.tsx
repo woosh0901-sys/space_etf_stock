@@ -4,7 +4,8 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import { StockQuoteMap, fetchStockQuotes, StockQuote } from '@/lib/stock-api';
 import { CombinedHolding } from '@/lib/etf-data';
 import { useWatchlist } from '@/components/Watchlist';
-import { SortKey } from '@/lib/types'; // Assuming SortKey is defined here or locally
+// import { SortKey } from '@/lib/types'; 
+type SortKey = 'rank' | 'price' | 'change';
 
 interface HoldingsTableProps {
     holdings: CombinedHolding[];
@@ -43,12 +44,7 @@ export default function HoldingsTable({ holdings, quotes: initialQuotes, onStock
         return `${sign}${change.toFixed(2)} (${sign}${percent.toFixed(2)}%)`;
     };
 
-    const handleSort = (key: 'price' | 'change') => {
-        setSortConfig(current => ({
-            key,
-            dir: current.key === key && current.dir === 'desc' ? 'asc' : 'desc'
-        }));
-    };
+
 
     const filtered = useMemo(() => {
         const lowerTerm = searchTerm.toLowerCase().trim();
