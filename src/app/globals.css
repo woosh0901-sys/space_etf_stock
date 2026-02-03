@@ -2337,13 +2337,6 @@ body {
   background: rgba(79, 140, 255, 0.1);
 }
 
-.market-time-header {
-  font-size: var(--text-xs);
-  color: var(--text-secondary);
-  min-width: 60px;
-  text-align: right;
-}
-
 .text-right {
   text-align: right;
 }
@@ -2441,14 +2434,6 @@ body {
 
 .item-change.negative {
   color: var(--color-danger);
-}
-
-.market-time-price {
-  font-size: var(--text-xs);
-  color: var(--text-secondary);
-  min-width: 60px;
-  text-align: right;
-  margin-top: 2px;
 }
 
 @media (max-width: 480px) {
