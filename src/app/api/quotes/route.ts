@@ -60,7 +60,9 @@ async function getQuotes(request: NextRequest) {
                 price,
                 change,
                 changePercent,
-                marketState: meta.marketState || 'CLOSED'
+                marketState: meta.marketState || 'CLOSED',
+                preMarketPrice: meta.preMarketPrice,
+                postMarketPrice: meta.postMarketPrice
             };
         } catch (error) {
             console.error(`Failed to fetch ${ticker}:`, error);

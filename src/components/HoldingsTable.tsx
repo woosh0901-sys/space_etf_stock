@@ -119,6 +119,8 @@ export default function HoldingsTable({ holdings, quotes, onStockClick, searchTe
                         >
                             등락률 {sortConfig.key === 'change' && (sortConfig.dir === 'asc' ? '↑' : '↓')}
                         </button>
+                        <span className="market-time-header">프리장</span>
+                        <span className="market-time-header">데이장</span>
                     </div>
                 </div>
 
@@ -162,6 +164,12 @@ export default function HoldingsTable({ holdings, quotes, onStockClick, searchTe
                                         <span className="item-price">${price.toFixed(2)}</span>
                                         <span className={`item-change ${change >= 0 ? 'positive' : 'negative'}`}>
                                             {formatChange(quote.change, change)}
+                                        </span>
+                                        <span className="market-time-price">
+                                            {quote.preMarketPrice ? `$${quote.preMarketPrice.toFixed(2)}` : '-'}
+                                        </span>
+                                        <span className="market-time-price">
+                                            {quote.postMarketPrice ? `$${quote.postMarketPrice.toFixed(2)}` : '-'}
                                         </span>
                                     </>
                                 ) : (

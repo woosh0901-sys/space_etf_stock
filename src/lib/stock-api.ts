@@ -6,6 +6,8 @@ export interface StockQuote {
     change: number;
     changePercent: number;
     marketState: 'PRE' | 'REGULAR' | 'POST' | 'CLOSED';
+    preMarketPrice?: number;
+    postMarketPrice?: number;
 }
 
 export interface StockQuoteMap {
