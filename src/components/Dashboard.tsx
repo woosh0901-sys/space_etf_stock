@@ -16,6 +16,7 @@ interface ChartData {
     ticker: string;
     name: string;
     nameKr: string;
+    exchange?: string;
 }
 
 export default function Dashboard() {
@@ -60,7 +61,8 @@ export default function Dashboard() {
         setChartData({
             ticker: holding.ticker,
             name: holding.name,
-            nameKr: holding.nameKr
+            nameKr: holding.nameKr,
+            exchange: quotes[holding.ticker]?.exchange
         });
     };
 
@@ -69,7 +71,8 @@ export default function Dashboard() {
         setChartData({
             ticker,
             name: etf.etf.name,
-            nameKr: ticker === 'UFO' ? 'UFO 우주 ETF' : 'ARKX 우주 ETF'
+            nameKr: ticker === 'UFO' ? 'UFO 우주 ETF' : 'ARKX 우주 ETF',
+            exchange: quotes[ticker]?.exchange
         });
     };
 
@@ -163,7 +166,12 @@ export default function Dashboard() {
                             <ETFAnalysis
                                 etfTicker="UFO"
                                 quotes={quotes}
-                                onStockClick={(ticker) => setChartData({ ticker, name: ticker, nameKr: ticker })}
+                                onStockClick={(ticker) => setChartData({
+                                    ticker,
+                                    name: ticker,
+                                    nameKr: ticker,
+                                    exchange: quotes[ticker]?.exchange
+                                })}
                             />
                         </div>
 
@@ -171,7 +179,12 @@ export default function Dashboard() {
                             <ETFAnalysis
                                 etfTicker="ARKX"
                                 quotes={quotes}
-                                onStockClick={(ticker) => setChartData({ ticker, name: ticker, nameKr: ticker })}
+                                onStockClick={(ticker) => setChartData({
+                                    ticker,
+                                    name: ticker,
+                                    nameKr: ticker,
+                                    exchange: quotes[ticker]?.exchange
+                                })}
                             />
                         </div>
                     </div>
@@ -183,6 +196,7 @@ export default function Dashboard() {
                         ticker={chartData.ticker}
                         name={chartData.name}
                         nameKr={chartData.nameKr}
+                        exchange={chartData.exchange}
                         isOpen={true}
                         onClose={() => setChartData(null)}
                     />

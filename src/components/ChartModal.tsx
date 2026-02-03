@@ -6,12 +6,28 @@ interface ChartModalProps {
     ticker: string;
     name: string;
     nameKr: string;
+    exchange?: string;
     isOpen: boolean;
     onClose: () => void;
 }
 
-export default function ChartModal({ ticker, name, nameKr, isOpen, onClose }: ChartModalProps) {
+export default function ChartModal({ ticker, name, nameKr, exchange, isOpen, onClose }: ChartModalProps) {
     const containerRef = useRef<HTMLDivElement>(null);
+
+    // Map Yahoo Finance exchange to TradingView exchange
+    const getTradingViewSymbol = (ticker: string, exchange?: string) => {
+        if (!exchange) return ticker;
+
+        // Exchange Mapping Logic
+        const ex = exchange.toUpperCase();
+        if (ex.includes('NASDAQ')) return `NASDAQ:${ticker}`;
+        if (ex.includes('NYSE') || ex.includes('NYQ')) return `NYSE:${ticker}`;
+        if (ex.includes('BATS') || ex.includes('CBOE')) return `AMEX:${ticker}`; // ARKX often maps to AMEX/CBOE in TV
+        if (ex.includes('AMEX') || ex.includes('ASE')) return `AMEX:${ticker}`;
+        if (ex.includes('OTC') || ex.includes('PNK')) return `OTC:${ticker}`;
+
+        return ticker; // Default fallback
+    };
 
     // 차트 로드
     useEffect(() => {
@@ -33,13 +49,15 @@ export default function ChartModal({ ticker, name, nameKr, isOpen, onClose }: Ch
         widgetContainer.appendChild(widgetDiv);
         container.appendChild(widgetContainer);
 
+        const tvSymbol = getTradingViewSymbol(ticker, exchange);
+
         const script = document.createElement('script');
         script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
         script.type = 'text/javascript';
         script.async = true;
         script.innerHTML = JSON.stringify({
             autosize: true,
-            symbol: ticker,
+            symbol: tvSymbol,
             interval: '15',
             timezone: 'Asia/Seoul',
             theme: 'dark',
@@ -58,7 +76,7 @@ export default function ChartModal({ ticker, name, nameKr, isOpen, onClose }: Ch
         });
 
         widgetContainer.appendChild(script);
-    }, [isOpen, ticker]);
+    }, [isOpen, ticker, exchange]);
 
     // ESC 키로 닫기
     useEffect(() => {

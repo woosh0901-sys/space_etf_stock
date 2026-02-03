@@ -41,6 +41,9 @@ async function getQuotes(request: NextRequest) {
             const meta = result.meta;
             const marketState = meta.marketState || 'CLOSED';
 
+            console.log(`[DEBUG] META KEYS: ${Object.keys(meta).join(', ')}`);
+            console.log(`[DEBUG] Exchange: ${meta.exchangeName}, Full: ${meta.fullExchangeName}, Type: ${meta.instrumentType}`);
+
             console.log(`[DEBUG] ${ticker} State: ${marketState}, Reg: ${meta.regularMarketPrice}, Pre: ${meta.preMarketPrice}, Post: ${meta.postMarketPrice}`);
 
             let price = meta.regularMarketPrice ?? 0;
@@ -66,7 +69,8 @@ async function getQuotes(request: NextRequest) {
                 price,
                 change,
                 changePercent,
-                marketState
+                marketState,
+                exchange: meta.exchangeName || meta.fullExchangeName
             };
         } catch (error) {
             console.error(`Failed to fetch ${ticker}:`, error);
