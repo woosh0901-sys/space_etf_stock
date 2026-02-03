@@ -72,7 +72,10 @@ export default function ChartModal({ ticker, name, nameKr, exchange, isOpen, onC
             save_image: false,
             calendar: false,
             hide_volume: false,
-            support_host: 'https://www.tradingview.com'
+            support_host: 'https://www.tradingview.com',
+            overrides: {
+                "mainSeriesProperties.sessionId": "extended"
+            }
         });
 
         widgetContainer.appendChild(script);
