@@ -41,13 +41,21 @@ async function getQuotes(request: NextRequest) {
             const meta = result.meta;
             const marketState = meta.marketState || 'CLOSED';
 
+            console.log(`[DEBUG] ${ticker} State: ${marketState}, Reg: ${meta.regularMarketPrice}, Pre: ${meta.preMarketPrice}, Post: ${meta.postMarketPrice}`);
+
             let price = meta.regularMarketPrice ?? 0;
-            // Prioritize pre/post market prices
+
+            // Price Selection Logic:
+            // 1. Pre-Market: Show Pre-Market Price
             if (marketState === 'PRE' && meta.preMarketPrice) {
                 price = meta.preMarketPrice;
-            } else if ((marketState === 'POST' || marketState === 'POSTPOST') && meta.postMarketPrice) {
+            }
+            // 2. After-Market or Closed: Show Post-Market Price if available
+            // (Even if CLOSED, users often want to see the last after-hours price)
+            else if (['POST', 'POSTPOST', 'CLOSED'].includes(marketState) && meta.postMarketPrice) {
                 price = meta.postMarketPrice;
             }
+            // 3. Regular Market: Default to regularMarketPrice (already set)
 
             const previousClose = meta.chartPreviousClose ?? meta.previousClose ?? price;
             const change = price - previousClose;
