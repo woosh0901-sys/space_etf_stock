@@ -2664,6 +2664,35 @@ body {
   color: var(--text-primary);
 }
 
+/* Price Flash Animations */
+@keyframes flash-green {
+  0% {
+    background-color: rgba(34, 197, 94, 0.3);
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes flash-red {
+  0% {
+    background-color: rgba(239, 68, 68, 0.3);
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
+.flash-up {
+  animation: flash-green 1s ease-out;
+}
+
+.flash-down {
+  animation: flash-red 1s ease-out;
+}
+
 /* ===== TOOLS PAGE ===== */
 .tools-page {
   min-height: 100vh;
