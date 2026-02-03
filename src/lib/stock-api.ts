@@ -16,7 +16,7 @@ export interface StockQuoteMap {
 export async function fetchStockQuotes(tickers: string[]): Promise<StockQuoteMap> {
     try {
         const symbols = tickers.join(',');
-        const response = await fetch(`/api/quotes?symbols=${encodeURIComponent(symbols)}`);
+        const response = await fetch(`/api/market-data?symbols=${encodeURIComponent(symbols)}`);
 
         if (!response.ok) {
             console.error('Failed to fetch quotes:', response.status);

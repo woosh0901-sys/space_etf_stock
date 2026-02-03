@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { AppError, handleApiError } from '@/lib/error';
 
 const YAHOO_FINANCE_BASE = 'https://query1.finance.yahoo.com/v8/finance/chart';
 
@@ -8,13 +7,12 @@ async function getQuotes(request: NextRequest) {
     const symbols = searchParams.get('symbols');
 
     if (!symbols) {
-        throw new AppError('validation', 400, 'No symbols provided');
+        return NextResponse.json({ error: 'No symbols provided' }, { status: 400 });
     }
 
-    const tickers = symbols.split(',').slice(0, 50); // 최대 50개
+    const tickers = symbols.split(',').slice(0, 50);
     const quotes: Record<string, unknown> = {};
 
-    // 병렬로 요청
     const promises = tickers.map(async (ticker) => {
         try {
             const response = await fetch(
@@ -23,7 +21,7 @@ async function getQuotes(request: NextRequest) {
                     headers: {
                         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
                     },
-                    next: { revalidate: 60 } // 1분 캐시
+                    next: { revalidate: 60 }
                 }
             );
 
@@ -44,7 +42,7 @@ async function getQuotes(request: NextRequest) {
             const marketState = meta.marketState || 'CLOSED';
 
             let price = meta.regularMarketPrice ?? 0;
-            // 프리장/애프터마켓 가격 우선 적용
+            // Prioritize pre/post market prices
             if (marketState === 'PRE' && meta.preMarketPrice) {
                 price = meta.preMarketPrice;
             } else if ((marketState === 'POST' || marketState === 'POSTPOST') && meta.postMarketPrice) {
@@ -60,7 +58,7 @@ async function getQuotes(request: NextRequest) {
                 price,
                 change,
                 changePercent,
-                marketState: meta.marketState || 'CLOSED'
+                marketState
             };
         } catch (error) {
             console.error(`Failed to fetch ${ticker}:`, error);
@@ -77,6 +75,7 @@ export async function GET(request: NextRequest) {
     try {
         return await getQuotes(request);
     } catch (error) {
-        return handleApiError(error);
+        console.error('API Error:', error);
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }
