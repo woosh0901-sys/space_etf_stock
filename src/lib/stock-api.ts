@@ -1,4 +1,4 @@
-// 서버 API를 통한 실시간 주가 조회 (CORS 우회)
+// Server API for real-time stock quotes
 
 export interface StockQuote {
     ticker: string;
@@ -12,7 +12,7 @@ export interface StockQuoteMap {
     [ticker: string]: StockQuote | null;
 }
 
-// 주가 데이터 가져오기 (API Route를 통해 호출)
+// Fetch stock data via API Route
 export async function fetchStockQuotes(tickers: string[]): Promise<StockQuoteMap> {
     try {
         const symbols = tickers.join(',');
@@ -31,13 +31,13 @@ export async function fetchStockQuotes(tickers: string[]): Promise<StockQuoteMap
     }
 }
 
-// 마켓 상태 한글 표시
+// Market state label
 export function getMarketStateLabel(state: string): string {
     switch (state) {
-        case 'PRE': return '프리마켓';
-        case 'REGULAR': return '거래중';
-        case 'POST': return '애프터마켓';
-        case 'CLOSED': return '마감';
+        case 'PRE': return 'Pre-Market';
+        case 'REGULAR': return 'Regular';
+        case 'POST': return 'After-Hours';
+        case 'CLOSED': return 'Closed';
         default: return state;
     }
 }
