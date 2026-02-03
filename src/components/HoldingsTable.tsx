@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { StockQuoteMap } from '@/lib/stock-api';
+import { useState, useMemo, useEffect, useRef } from 'react';
+import { StockQuoteMap, fetchStockQuotes, StockQuote } from '@/lib/stock-api';
 import { CombinedHolding } from '@/lib/etf-data';
 import { useWatchlist } from '@/components/Watchlist';
+import { SortKey } from '@/lib/types'; // Assuming SortKey is defined here or locally
 
 interface HoldingsTableProps {
     holdings: CombinedHolding[];
@@ -27,9 +28,15 @@ const KEYWORD_MAP: Record<string, string[]> = {
     '민간우주': ['tourism', 'service', 'commercial', 'virgin'],
 };
 
-export default function HoldingsTable({ holdings, quotes, onStockClick, searchTerm, filter, isLoading: _isLoading }: HoldingsTableProps) {
+export default function HoldingsTable({ holdings, quotes: initialQuotes, onStockClick, searchTerm, filter, isLoading: _isLoading }: HoldingsTableProps) {
     const [sortConfig, setSortConfig] = useState<{ key: 'rank' | 'price' | 'change', dir: 'asc' | 'desc' }>({ key: 'rank', dir: 'asc' });
     const { isInWatchlist, toggleWatchlist } = useWatchlist();
+    const [stockQuotes, setStockQuotes] = useState<StockQuoteMap>(initialQuotes);
+
+    // Initial quotes sync
+    useEffect(() => {
+        setStockQuotes(initialQuotes);
+    }, [initialQuotes]);
 
     const formatChange = (change: number, percent: number) => {
         const sign = change >= 0 ? '+' : '';
@@ -76,23 +83,54 @@ export default function HoldingsTable({ holdings, quotes, onStockClick, searchTe
         });
     }, [holdings, searchTerm, filter]);
 
+    // Real-time polling
+    useEffect(() => {
+        const fetchPrices = async () => {
+            try {
+                // _isLoading removed to prevent flicker
+                const quotes = await fetchStockQuotes(holdings.map(h => h.ticker));
+                setStockQuotes(prev => {
+                    return quotes;
+                });
+            } catch (error) {
+                console.error('Error fetching stock quotes:', error);
+            }
+        };
+
+        fetchPrices();
+        const interval = setInterval(fetchPrices, 5000); // 5 seconds polling
+
+        return () => clearInterval(interval);
+    }, [holdings]);
+
+    const handleSort = (key: SortKey) => {
+        setSortConfig(current => ({
+            key,
+            dir: current.key === key && current.dir === 'asc' ? 'desc' : 'asc'
+        }));
+    };
+
     const sortedHoldings = useMemo(() => {
         const sorted = [...filtered];
         if (sortConfig.key === 'price') {
             sorted.sort((a, b) => {
-                const priceA = quotes[a.ticker]?.price || 0;
-                const priceB = quotes[b.ticker]?.price || 0;
+                const quoteA = stockQuotes[a.ticker];
+                const quoteB = stockQuotes[b.ticker];
+                const priceA = quoteA?.price || 0;
+                const priceB = quoteB?.price || 0;
                 return sortConfig.dir === 'asc' ? priceA - priceB : priceB - priceA;
             });
         } else if (sortConfig.key === 'change') {
             sorted.sort((a, b) => {
-                const changeA = quotes[a.ticker]?.changePercent || 0;
-                const changeB = quotes[b.ticker]?.changePercent || 0;
+                const quoteA = stockQuotes[a.ticker];
+                const quoteB = stockQuotes[b.ticker];
+                const changeA = quoteA?.changePercent || 0;
+                const changeB = quoteB?.changePercent || 0;
                 return sortConfig.dir === 'asc' ? changeA - changeB : changeB - changeA;
             });
         }
         return sorted;
-    }, [filtered, quotes, sortConfig]);
+    }, [filtered, stockQuotes, sortConfig]);
 
     return (
         <div className="holdings-container">
@@ -122,55 +160,17 @@ export default function HoldingsTable({ holdings, quotes, onStockClick, searchTe
                     </div>
                 </div>
 
-                {sortedHoldings.map((h, index) => {
-                    const quote = quotes[h.ticker];
-                    const change = quote ? quote.changePercent : 0;
-                    const price = quote ? quote.price : 0;
-                    const isWatched = isInWatchlist(h.ticker);
-
-                    return (
-                        <div
-                            key={`${h.ticker}-${index}`}
-                            className="list-item-modern"
-                            onClick={() => onStockClick(h)}
-                        >
-                            <div className="item-rank">{index + 1}</div>
-
-                            <div className="item-info">
-                                <div className="item-top">
-                                    <span className="item-ticker">{h.ticker}</span>
-                                    {h.isOverlap && <span className="item-etf-badge" style={{ color: 'var(--color-primary)' }}>중복</span>}
-                                    <button
-                                        className="star-btn"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            toggleWatchlist(h.ticker);
-                                        }}
-                                        title={isWatched ? "관심종목 제거" : "관심종목 추가"}
-                                    >
-                                        {isWatched ? '⭐' : '☆'}
-                                    </button>
-                                </div>
-                                <span className="item-name">
-                                    {h.nameKr} <span style={{ opacity: 0.7 }}>({h.name})</span>
-                                </span>
-                            </div>
-
-                            <div className="item-price-col">
-                                {quote ? (
-                                    <>
-                                        <span className="item-price">${price.toFixed(2)}</span>
-                                        <span className={`item-change ${change >= 0 ? 'positive' : 'negative'}`}>
-                                            {formatChange(quote.change, change)}
-                                        </span>
-                                    </>
-                                ) : (
-                                    <span className="price-loading">...</span>
-                                )}
-                            </div>
-                        </div>
-                    );
-                })}
+                {sortedHoldings.map((h, index) => (
+                    <HoldingItem
+                        key={h.ticker}
+                        item={h}
+                        index={index}
+                        quote={stockQuotes[h.ticker]}
+                        isWatched={isInWatchlist(h.ticker)}
+                        onToggleWatchlist={toggleWatchlist}
+                        onClick={() => onStockClick(h)}
+                    />
+                ))}
             </div>
 
             {filtered.length === 0 && (
@@ -178,6 +178,74 @@ export default function HoldingsTable({ holdings, quotes, onStockClick, searchTe
                     <p>검색 결과가 없습니다.</p>
                 </div>
             )}
+        </div>
+    );
+}
+
+// Separate component for flash animation logic
+function HoldingItem({ item, index, quote, isWatched, onToggleWatchlist, onClick }: any) {
+    const [flashClass, setFlashClass] = useState('');
+    const prevPriceRef = useRef<number | null>(null);
+
+    const price = quote?.price || 0;
+    const change = quote?.changePercent || 0;
+
+    useEffect(() => {
+        if (prevPriceRef.current !== null && quote) {
+            if (price > prevPriceRef.current) {
+                setFlashClass('flash-up');
+                setTimeout(() => setFlashClass(''), 1000);
+            } else if (price < prevPriceRef.current) {
+                setFlashClass('flash-down');
+                setTimeout(() => setFlashClass(''), 1000);
+            }
+        }
+        if (quote) {
+            prevPriceRef.current = price;
+        }
+    }, [price, quote]);
+
+    const formatChange = (val: number, changeAmount: number) => {
+        const sign = val >= 0 ? '+' : '';
+        return `${sign}${val.toFixed(2)}% (${changeAmount >= 0 ? '+' : ''}${changeAmount.toFixed(2)})`;
+    };
+
+    return (
+        <div className={`list-item-modern ${flashClass}`} onClick={onClick}>
+            <div className="item-rank">{index + 1}</div>
+
+            <div className="item-info">
+                <div className="item-top">
+                    <span className="item-ticker">{item.ticker}</span>
+                    {item.isOverlap && <span className="item-etf-badge" style={{ color: 'var(--color-primary)' }}>중복</span>}
+                    <button
+                        className="star-btn"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onToggleWatchlist(item.ticker);
+                        }}
+                        title={isWatched ? "관심종목 제거" : "관심종목 추가"}
+                    >
+                        {isWatched ? '⭐' : '☆'}
+                    </button>
+                </div>
+                <span className="item-name">
+                    {item.nameKr} <span style={{ opacity: 0.7 }}>({item.name})</span>
+                </span>
+            </div>
+
+            <div className="item-price-col">
+                {quote ? (
+                    <>
+                        <span className="item-price">${price.toFixed(2)}</span>
+                        <span className={`item-change ${change >= 0 ? 'positive' : 'negative'}`}>
+                            {formatChange(change, quote.change)}
+                        </span>
+                    </>
+                ) : (
+                    <span className="price-loading">...</span>
+                )}
+            </div>
         </div>
     );
 }
